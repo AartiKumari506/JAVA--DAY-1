@@ -1,0 +1,95 @@
+Assignment as:
+1. Check user entered input amount and compare with atm machine balance, user account balance and if both are valid then less amount from user balance and also on atm machine balance 
+2. ⁠Add option to deposits amount, maximum amount to deposit is 50000, check all cases, add deposits amount on both user balance and atm machine balance
+
+
+
+
+Answers :
+
+ import java.util.Scanner;
+
+class ATM {
+    private double atmBalance;
+    private double userBalance;
+
+    // Constructor to initialize balances
+    public ATM(double atmBalance, double userBalance) {
+        this.atmBalance = atmBalance;
+        this.userBalance = userBalance;
+    }
+
+    // Method to withdraw money
+    public void withdraw(double amount) {
+        if (amount > userBalance) {
+            System.out.println("Insufficient funds in your account!");
+        } else if (amount > atmBalance) {
+            System.out.println("Insufficient funds in ATM!");
+        } else {
+            userBalance -= amount;
+            atmBalance -= amount;
+            System.out.println("Withdrawal successful! You withdrew " + amount);
+            displayBalances();
+        }
+    }
+
+    // Method to deposit money
+    public void deposit(double amount) {
+        if (amount > 50000) {
+            System.out.println("Maximum deposit limit is 50,000.");
+        } else {
+            userBalance += amount;
+            atmBalance += amount;
+            System.out.println("Deposit successful! You deposited " + amount);
+            displayBalances();
+        }
+    }
+
+    // Method to display current balances
+    private void displayBalances() {
+        System.out.println("Current ATM balance: " + atmBalance);
+        System.out.println("Current user balance: " + userBalance);
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        // Initializing ATM and user balance
+        ATM atm = new ATM(100000, 20000);
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Welcome to the ATM!");
+
+        // Menu for user interaction
+        while (true) {
+            System.out.println("\nChoose an option:");
+            System.out.println("1. Withdraw");
+            System.out.println("2. Deposit");
+            System.out.println("3. Exit");
+            int option = sc.nextInt();
+
+            switch (option) {
+                case 1:
+                    System.out.print("Enter amount to withdraw: ");
+                    double withdrawAmount = sc.nextDouble();
+                    atm.withdraw(withdrawAmount);
+                    break;
+
+                case 2:
+                    System.out.print("Enter amount to deposit: ");
+                    double depositAmount = sc.nextDouble();
+                    atm.deposit(depositAmount);
+                    break;
+
+                case 3:
+                    System.out.println("Thank you for using the ATM! Goodbye.");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+}
+ 
+
+
